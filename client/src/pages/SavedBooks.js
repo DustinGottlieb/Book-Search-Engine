@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
-import { useQuery, useMutation} from '@apollo/client';
-import { GET_ME } from '../crud/queries';
+import { useQuery, useMutation } from '@apollo/client'
+import { GET_ME } from '../crud/queries'
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 import { REMOVE_BOOK } from '../crud/mutations';
