@@ -66,6 +66,6 @@ const resolvers = {
             throw new AuthenticationError('Could not delete book')
         }
     }
-}
+};
 
-module.exports = resolvers;
+module.exports = resolvers
