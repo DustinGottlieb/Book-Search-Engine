@@ -1,42 +1,49 @@
-import React from 'react';
-import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
-import { useQuery, useMutation } from '@apollo/client'
-import { GET_ME } from '../crud/queries'
-import Auth from '../utils/auth';
-import { removeBookId } from '../utils/localStorage';
-import { REMOVE_BOOK } from '../crud/mutations';
+import React from "react";
+import {
+  Jumbotron,
+  Container,
+  CardColumns,
+  Card,
+  Button,
+} from "react-bootstrap";
+
+// import { deleteBook } from '../utils/API';
+import Auth from "../utils/auth";
+import { removeBookId } from "../utils/localStorage";
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import { REMOVE_BOOK } from "../utils/mutations";
+import { GET_ME } from "../utils/queries";
 
 const SavedBooks = () => {
-  let userData = {}
-    
-  const { loading, data } = useQuery(GET_ME)
-  const [deleteBook] = useMutation(REMOVE_BOOK)
-  //set userData to data returned from GET_ME query
-  if (!loading) {
-    userData = data.me
-  }
+  // const [userData, setUserData] = useState({});
+  const [removeBook, { error }] = useMutation(REMOVE_BOOK);
+  const { loading, data } = useQuery(GET_ME);
+  const userData = data?.me || {};
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
-
-
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
       return false;
     }
-    //run resolver function deleteBook with bookId as args
+
     try {
-      const { data } = await deleteBook({
-        variables: { bookId }
-      })
-      if (!data) {
-        throw new Error('something went wrong!');
+      const { data } = await removeBook({
+        variables: { bookId },
+      });
+
+      console.log(data);
+
+      if (error) {
+        throw new Error("Something went wrong!");
       }
+
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
     } catch (err) {
       console.error(err);
+      
     }
   };
 
