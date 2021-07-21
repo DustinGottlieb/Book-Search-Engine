@@ -6,7 +6,7 @@ const { typeDefs, resolvers } = require('./Schemas');
 const { authMiddleware } = require('./utils/auth');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 const server = new ApolloServer({
   typeDefs,
@@ -21,7 +21,7 @@ app.use(express.json());
 
 // if we're in production, serve client/build as static assets
 if (process.env.NODE_ENV === 'production') {
-  app.get(express.static(path.join(__dirname, '../client/build')));
+  app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
 db.once('open', () => {
