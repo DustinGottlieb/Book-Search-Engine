@@ -17,8 +17,12 @@
   },
   "dependencies": {
     "@apollo/client": "^3.3.21",
+    "@apollo/react-hooks": "^4.0.0",
     "apollo-server-express": "^2.25.2",
     "graphql": "^15.5.1",
-    "jsonwebtoken": "^8.5.1"
+    "jsonwebtoken": "^8.5.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.8.0-alpha.1",
+    "react-hooks": "^1.0.1"
   }
 }
